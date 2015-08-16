@@ -5,7 +5,6 @@ date: "Sunday, August 16, 2015"
 output: html_document
 ---
 
-
 ## 1 - Loading and preprocessing the data
 
 In this section, we present the necessary steps to load and preprocessing the data.
@@ -534,6 +533,4 @@ And now, we can plot the data, according to the specified:
 par(mfrow=c(2,1)) 
 plot(min_inter, vmean_interval_weekdays, type = "l", xlab = "5-minute interval", ylab = "Weekdays")
 plot(min_inter, vmean_interval_weekends, type = "l", xlab = "5-minute interval", ylab = "Weekends")
-
-
 ```

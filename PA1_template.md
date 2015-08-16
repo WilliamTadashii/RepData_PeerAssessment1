@@ -1,13 +1,9 @@
-# Reproducible Research: Peer Assessment 1
-
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-
-
-
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "William de Souza"
+date: "Sunday, August 16, 2015"
+output: html_document
+---
 
 ## 1 - Loading and preprocessing the data
 
@@ -75,7 +71,7 @@ Now, we plot the histogram:
 hist(vs, col = "blue", xlab = "Number of steps", main = "Number of steps taken each day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 ### B - **Mean** and **median** of the total number of steps taken per day
 
@@ -213,7 +209,7 @@ We can plot the 5-minute interval x the average number of steps taken:
 plot(min_inter, vmean_interval, type = "l", xlab = "5-minute interval", ylab = "Average number of steps", main = "5-minute interval x the average number of steps taken")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
 ### B - Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -380,26 +376,7 @@ while(i <= max_intervals){
 #
 
 library(dplyr)
-```
 
-```
-## Warning: package 'dplyr' was built under R version 3.2.1
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 steps <- vector("numeric")
 i <- 1
 
@@ -492,7 +469,7 @@ Now, we plot the histogram:
 hist(vs2, col = "blue", xlab = "Number of steps", main = "New number of steps taken each day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-20-1.png) 
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png) 
 
 ### B - **Mean** and **median** of the total number of steps taken per day
 
@@ -588,50 +565,117 @@ vmedian
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Analysing the histograms, the figures are different, but the impact in the form is not but the impact in the form is not clearly sensitive. However, the mean and the meadian is clearly different. So, we conclude that NA values have a meaningful impact on the data.
 
 
 ## 5 - Are there differences in activity patterns between weekdays and weekends?
 
+For this assigment, we will perform two tasks, as described below:
+
+### A - Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
 
 ```r
-summary(cars)
+#
+# First, we create a vector to receive the factos "weekday" and "weekend", acording to the 
+# result of the function wday(). 
+#
+
+library(lubridate)
+
+i <- 1
+days <- vector()
+
+while(i <= rows){
+  date <- wday(act2[i, 2])
+  if( date == 1){
+    days[i] <- "Weekend"
+  }else if( date == 7){
+    days[i] <- "Weekend"
+  }else{
+    days[i] <- "Weekday"
+  }
+    i <- i + 1
+}
+
+#
+# And then, we put the new variable in the dataset act2
+#
+act2 <- cbind(act2, days)
+```
+
+See below a sample of the dataset act2 with the new variable:
+
+
+```r
+head(act2, 20)
 ```
 
 ```
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
+##         steps       date interval    days
+## 1  0.31597222 2012-10-01        0 Weekday
+## 2  0.06250000 2012-10-01        5 Weekday
+## 3  0.02430556 2012-10-01       10 Weekday
+## 4  0.02777778 2012-10-01       15 Weekday
+## 5  0.01388889 2012-10-01       20 Weekday
+## 6  0.38541667 2012-10-01       25 Weekday
+## 7  0.09722222 2012-10-01       30 Weekday
+## 8  0.15972222 2012-10-01       35 Weekday
+## 9  0.00000000 2012-10-01       40 Weekday
+## 10 0.27083333 2012-10-01       45 Weekday
+## 11 0.05555556 2012-10-01       50 Weekday
+## 12 0.02430556 2012-10-01       55 Weekday
+## 13 0.05902778 2012-10-01      100 Weekday
+## 14 0.12500000 2012-10-01      105 Weekday
+## 15 0.02777778 2012-10-01      110 Weekday
+## 16 0.06250000 2012-10-01      115 Weekday
+## 17 0.00000000 2012-10-01      120 Weekday
+## 18 0.20486111 2012-10-01      125 Weekday
+## 19 0.33680556 2012-10-01      130 Weekday
+## 20 0.03125000 2012-10-01      135 Weekday
 ```
 
-You can also embed plots, for example:
+### B - Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was created using simulated data:
 
-![](PA1_template_files/figure-html/unnamed-chunk-27-1.png) 
+We use the code below to prepare the data to plot:
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```r
+max_intervals <- 288
+
+vinterval_weekdays <- vector("numeric", length = max_intervals)
+vinterval_weekends <- vector("numeric", length = max_intervals)
+vmean_interval_weekdays <- vector("numeric", length = max_intervals)
+vmean_interval_weekends <- vector("numeric", length = max_intervals)
+
+rows <- nrow(act2)
+i <- 1
+
+while(i <= rows){
+  date <- act2[i, 2]
+  intervals <- 0
+  while(identical(date, act2[i,2])){
+    intervals <- intervals + 1
+    if(identical("Weekday", as.character(act2[i,4]))){
+      vinterval_weekdays[intervals] <- vinterval_weekdays[intervals] + act2[i,1]
+    }else{
+      vinterval_weekends[intervals] <- vinterval_weekends[intervals] + act2[i,1]
+    }
+    i <- i + 1
+  }
+}
+
+i <- 1
+
+while(i <= max_intervals){
+  vmean_interval_weekdays[i] <- vinterval_weekdays[i] / max_intervals
+  vmean_interval_weekends[i] <- vinterval_weekends[i] / max_intervals
+  i <- i + 1
+}
+
+min_inter <- c(1:288)
+```
+
+And now, we can plot the data, according to the specified:
+
+![plot of chunk unnamed-chunk-29](figure/unnamed-chunk-29-1.png) 
