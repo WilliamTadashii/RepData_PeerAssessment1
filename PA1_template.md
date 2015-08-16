@@ -1,9 +1,12 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-author: "William de Souza"
-date: "Sunday, August 16, 2015"
-output: html_document
----
+# Reproducible Research: Peer Assessment 1
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
 
 
 ## 1 - Loading and preprocessing the data
@@ -12,14 +15,26 @@ In this section, we present the necessary steps to load and preprocessing the da
 
 Below, we load the data using:
 
-```{r, echo=TRUE}
+
+```r
 act <- read.csv("activity.csv", sep = ",", header = TRUE)
 ```
 
 Below, it is showed a sample of the dataset:
 
-```{r, echo=TRUE}
+
+```r
 head(act)
+```
+
+```
+##   steps       date interval
+## 1    NA 2012-10-01        0
+## 2    NA 2012-10-01        5
+## 3    NA 2012-10-01       10
+## 4    NA 2012-10-01       15
+## 5    NA 2012-10-01       20
+## 6    NA 2012-10-01       25
 ```
 
 ## 2 - What is mean total number of steps taken per day?
@@ -31,7 +46,8 @@ In this section, we will first plot a histogram of the number of steps taken eac
 For this task, with first scan the dataset and compute the number of steps for each day, excluding the NA values.
 
 
-```{r, echo=TRUE}
+
+```r
 vs <- numeric(length = 0)
 rows <- nrow(act)
 i <- 1
@@ -54,28 +70,41 @@ while(i <= rows){
 
 Now, we plot the histogram:
 
-```{r, echo=TRUE}
+
+```r
 hist(vs, col = "blue", xlab = "Number of steps", main = "Number of steps taken each day")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 ### B - **Mean** and **median** of the total number of steps taken per day
 
 1 - The general mean is:
 
-```{r, echo=TRUE}
+
+```r
 mean (vs)
+```
+
+```
+## [1] 9354.23
 ```
 
 2 - The general median is:
 
-```{r, echo=TRUE}
-median (vs)
 
+```r
+median (vs)
+```
+
+```
+## [1] 10395
 ```
 
 3 - The mean and median per day are obtained by the follow code:
 
-```{r, echo=TRUE}
+
+```r
 act <- read.csv("activity.csv", sep = ",", header = TRUE)
 
 vmean <- numeric(length = 0)
@@ -105,14 +134,35 @@ while(i <= rows){
 
 The mean by day are:
 
-```{r, echo=TRUE}
+
+```r
 vmean
+```
+
+```
+##  [1]  0.0000000  0.4375000 39.4166667 42.0694444 46.1597222 53.5416667
+##  [7] 38.2465278  0.0000000 44.4826389 34.3750000 35.7777778 60.3541667
+## [13] 43.1458333 52.4236111 35.2048611 52.3750000 46.7083333 34.9166667
+## [19] 41.0729167 36.0937500 30.6284722 46.7361111 30.9652778 29.0104167
+## [25]  8.6527778 23.5347222 35.1354167 39.7847222 17.4236111 34.0937500
+## [31] 53.5208333  0.0000000 36.8055556 36.7048611  0.0000000 36.2465278
+## [37] 28.9375000 44.7326389 11.1770833  0.0000000  0.0000000 43.7777778
+## [43] 37.3784722 25.4722222  0.0000000  0.1423611 18.8923611 49.7881944
+## [49] 52.4652778 30.6979167 15.5277778 44.3993056 70.9270833 73.5902778
+## [55] 50.2708333 41.0902778 38.7569444 47.3819444 35.3576389 24.4687500
+## [61]  0.0000000
 ```
 
 The median by day are:
 
-```{r, echo=TRUE}
+
+```r
 vmedian
+```
+
+```
+##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [36] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ```
 
 
@@ -124,7 +174,8 @@ In this sections, we will plot a time series and discover which interval contain
 
 Using the code below:
 
-```{r, echo=TRUE}
+
+```r
 vinterval <- vector("numeric", length = 288)
 vmean_interval <- vector("numeric", length = 288)
 
@@ -157,18 +208,19 @@ min_inter <- c(1:288)
 
 We can plot the 5-minute interval x the average number of steps taken:
 
-```{r, echo=TRUE}
 
+```r
 plot(min_inter, vmean_interval, type = "l", xlab = "5-minute interval", ylab = "Average number of steps", main = "5-minute interval x the average number of steps taken")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
 
 ### B - Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 To answer this questions, we use the code below:
 
-```{r, echo=TRUE}
 
+```r
 vinterval <- vector("numeric", length = 288)
 vmean_interval <- vector("numeric", length = 288)
 
@@ -207,25 +259,33 @@ while(i <= max_intervals){
   }
   i <- i + 1
 }
-
 ```
 
 And here is the 5-minute interval that contains the maximum number of steps:
 
-```{r, echo=TRUE}
 
+```r
 ## The 5-minute interval that contains the maximum number of steps:
 the_bigger
+```
 
+```
+## [1] 104
+```
+
+```r
 ## Its value:
 value
+```
 
+```
+## [1] 37.94097
 ```
 
 To find what time is it in the day, we use the code below:
 
-```{r, echo=TRUE}
 
+```r
 ## To find de number of hours, we divide the_bigger for 12, since every hour has 12 of 5 minutes
 hour <- the_bigger %/% 12
 
@@ -237,7 +297,10 @@ minutes <- rem * 5
 
 ## Thus, we can paste all together, to find the time in the day
 paste("Time: ", hour, ".", minutes, sep = "")
+```
 
+```
+## [1] "Time: 8.40"
 ```
 
 ## 4 - Inputing missing values
@@ -248,7 +311,8 @@ In this section, we will deal with four tasks, as described below:
 
 Using the code below:
 
-```{r, echo=TRUE}
+
+```r
 rows <- nrow(act)
 count <- 0
 
@@ -257,21 +321,23 @@ for(i in 1:rows){
       count <- count + 1
     }
 }
-
 ```
 
 The number of missing values is:
 
-```{r, echo=TRUE}
 
+```r
 count
+```
 
+```
+## [1] 2304
 ```
 
 ### B - Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-```{r, echo=TRUE}
 
+```r
 #
 # We use this previous code below to demonstrate our strategy
 #
@@ -314,7 +380,26 @@ while(i <= max_intervals){
 #
 
 library(dplyr)
+```
 
+```
+## Warning: package 'dplyr' was built under R version 3.2.1
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 steps <- vector("numeric")
 i <- 1
 
@@ -333,19 +418,41 @@ while(i <= rows){
 }
 
 # At this point, the vector steps[] contains the column "steps" with our values filled.
-
 ```
 
 ### C - Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 From the previous code, now we create the new dataset called act2:
 
-```{r, echo=TRUE}
 
+```r
 act2 <- cbind(steps, select(act, -steps))
 
 head(act2, 20)
+```
 
+```
+##         steps       date interval
+## 1  0.31597222 2012-10-01        0
+## 2  0.06250000 2012-10-01        5
+## 3  0.02430556 2012-10-01       10
+## 4  0.02777778 2012-10-01       15
+## 5  0.01388889 2012-10-01       20
+## 6  0.38541667 2012-10-01       25
+## 7  0.09722222 2012-10-01       30
+## 8  0.15972222 2012-10-01       35
+## 9  0.00000000 2012-10-01       40
+## 10 0.27083333 2012-10-01       45
+## 11 0.05555556 2012-10-01       50
+## 12 0.02430556 2012-10-01       55
+## 13 0.05902778 2012-10-01      100
+## 14 0.12500000 2012-10-01      105
+## 15 0.02777778 2012-10-01      110
+## 16 0.06250000 2012-10-01      115
+## 17 0.00000000 2012-10-01      120
+## 18 0.20486111 2012-10-01      125
+## 19 0.33680556 2012-10-01      130
+## 20 0.03125000 2012-10-01      135
 ```
 
 ### D - Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -356,7 +463,8 @@ We will follow all the steps from the assignment 1, but now using the new datase
 
 We first scan the dataset and compute the number of steps for each day.
 
-```{r, echo=TRUE}
+
+```r
 vs2 <- numeric(length = 0)
 rows <- nrow(act2)
 i <- 1
@@ -379,29 +487,41 @@ while(i <= rows){
 
 Now, we plot the histogram:
 
-```{r, echo=TRUE}
+
+```r
 hist(vs2, col = "blue", xlab = "Number of steps", main = "New number of steps taken each day")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-20-1.png) 
 
 ### B - **Mean** and **median** of the total number of steps taken per day
 
 1 - The general mean is:
 
-```{r, echo=TRUE}
+
+```r
 mean (vs2)
+```
+
+```
+## [1] 9614.069
 ```
 
 2 - The general median is:
 
-```{r, echo=TRUE}
-median (vs2)
 
+```r
+median (vs2)
+```
+
+```
+## [1] 10395
 ```
 
 3 - The mean and median per day are obtained by the follow code:
 
-```{r, echo=TRUE}
 
+```r
 vmean <- numeric(length = 0)
 vmedian <- numeric(length = 0)
 rows <- nrow(act2)
@@ -429,111 +549,89 @@ while(i <= rows){
 
 The mean by day are:
 
-```{r, echo=TRUE}
+
+```r
 vmean
+```
+
+```
+##  [1]  6.8794367  0.4375000 39.4166667 42.0694444 46.1597222 53.5416667
+##  [7] 38.2465278  6.8794367 44.4826389 34.3750000 35.7777778 60.3541667
+## [13] 43.1458333 52.4236111 35.2048611 52.3750000 46.7083333 34.9166667
+## [19] 41.0729167 36.0937500 30.6284722 46.7361111 30.9652778 29.0104167
+## [25]  8.6527778 23.5347222 35.1354167 39.7847222 17.4236111 34.0937500
+## [31] 53.5208333  6.8794367 36.8055556 36.7048611  6.8794367 36.2465278
+## [37] 28.9375000 44.7326389 11.1770833  6.8794367  6.8794367 43.7777778
+## [43] 37.3784722 25.4722222  6.8794367  0.1423611 18.8923611 49.7881944
+## [49] 52.4652778 30.6979167 15.5277778 44.3993056 70.9270833 73.5902778
+## [55] 50.2708333 41.0902778 38.7569444 47.3819444 35.3576389 24.4687500
+## [61]  6.8794367
 ```
 
 The median by day are:
 
-```{r, echo=TRUE}
+
+```r
 vmedian
 ```
 
+```
+##  [1] 6.277778 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+##  [8] 6.277778 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+## [15] 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+## [22] 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+## [29] 0.000000 0.000000 0.000000 6.277778 0.000000 0.000000 6.277778
+## [36] 0.000000 0.000000 0.000000 0.000000 6.277778 6.277778 0.000000
+## [43] 0.000000 0.000000 6.277778 0.000000 0.000000 0.000000 0.000000
+## [50] 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+## [57] 0.000000 0.000000 0.000000 0.000000 6.277778
+```
 
-Analysing the histograms, the figures are different, but the impact in the form is not but the impact in the form is not clearly sensitive. However, the mean and the meadian is clearly different. So, we conclude that NA values have a meaningful impact on the data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 5 - Are there differences in activity patterns between weekdays and weekends?
 
-For this assigment, we will perform two tasks, as described below:
 
-### A - Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
-
-```{r, echo=TRUE}
-
-#
-# First, we create a vector to receive the factos "weekday" and "weekend", acording to the 
-# result of the function wday(). 
-#
-
-library(lubridate)
-
-i <- 1
-days <- vector()
-
-while(i <= rows){
-  date <- wday(act2[i, 2])
-  if( date == 1){
-    days[i] <- "Weekend"
-  }else if( date == 7){
-    days[i] <- "Weekend"
-  }else{
-    days[i] <- "Weekday"
-  }
-    i <- i + 1
-}
-
-#
-# And then, we put the new variable in the dataset act2
-#
-act2 <- cbind(act2, days)
+```r
+summary(cars)
 ```
 
-See below a sample of the dataset act2 with the new variable:
-
-```{r, echo=TRUE}
-
-head(act2, 20)
-
+```
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
 ```
 
-### B - Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was created using simulated data:
+You can also embed plots, for example:
 
-We use the code below to prepare the data to plot:
+![](PA1_template_files/figure-html/unnamed-chunk-27-1.png) 
 
-```{r}
-max_intervals <- 288
-
-vinterval_weekdays <- vector("numeric", length = max_intervals)
-vinterval_weekends <- vector("numeric", length = max_intervals)
-vmean_interval_weekdays <- vector("numeric", length = max_intervals)
-vmean_interval_weekends <- vector("numeric", length = max_intervals)
-
-rows <- nrow(act2)
-i <- 1
-
-while(i <= rows){
-  date <- act2[i, 2]
-  intervals <- 0
-  while(identical(date, act2[i,2])){
-    intervals <- intervals + 1
-    if(identical("Weekday", as.character(act2[i,4]))){
-      vinterval_weekdays[intervals] <- vinterval_weekdays[intervals] + act2[i,1]
-    }else{
-      vinterval_weekends[intervals] <- vinterval_weekends[intervals] + act2[i,1]
-    }
-    i <- i + 1
-  }
-}
-
-i <- 1
-
-while(i <= max_intervals){
-  vmean_interval_weekdays[i] <- vinterval_weekdays[i] / max_intervals
-  vmean_interval_weekends[i] <- vinterval_weekends[i] / max_intervals
-  i <- i + 1
-}
-
-min_inter <- c(1:288)
-```
-
-And now, we can plot the data, according to the specified:
-
-```{r, echo=FALSE}
-
-par(mfrow=c(2,1)) 
-plot(min_inter, vmean_interval_weekdays, type = "l", xlab = "5-minute interval", ylab = "Weekdays")
-plot(min_inter, vmean_interval_weekends, type = "l", xlab = "5-minute interval", ylab = "Weekends")
-
-
-```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
